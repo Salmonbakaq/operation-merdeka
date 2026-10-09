@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Operation Merdeka: E-Assessment</title>
+<style>
+:root{--green:#4c9b35;--dark:#183b20;--cream:#fff7d8;--brown:#815329;--red:#cf4c35}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(#b9e8ff,#e8f8c9);color:#20301c}
+header{background:#2f792b;color:white;text-align:center;padding:24px 16px;border-bottom:8px solid #8e602f}
+header h1{margin:0;font-size:clamp(1.7rem,5vw,3rem);text-shadow:2px 3px #173c19}header p{margin:8px auto 0;max-width:700px}
+main{max-width:900px;margin:20px auto;padding:0 14px}
+.panel{background:var(--cream);border:4px solid #8e602f;border-radius:18px;padding:18px;margin:16px 0;box-shadow:0 5px 0 #b2c68c}
+h2{margin-top:0;color:#2f792b}.tag{display:inline-block;background:#e6f5b6;border:2px solid #76a849;border-radius:20px;padding:5px 10px;font-weight:bold;margin:3px}
+.question{padding:14px 0;border-top:1px dashed #b99a69}.question:first-of-type{border-top:0}
+.question p{font-weight:bold;margin:0 0 10px}.option{display:block;background:white;border:1px solid #d3c6a2;padding:9px 12px;border-radius:10px;margin:7px 0;cursor:pointer}.option:hover{background:#f0f8d9}
+button{background:#2f792b;color:white;border:0;border-radius:12px;padding:12px 18px;font-size:1rem;font-weight:bold;cursor:pointer;margin:6px 6px 0 0}button.secondary{background:#815329}
+#result{display:none}.score{font-size:1.5rem;font-weight:bold;color:#2f792b}.feedback{padding:10px;border-radius:10px;margin:8px 0;background:#fff}
+input[type=text]{width:100%;padding:12px;border:2px solid #b99a69;border-radius:10px;font-size:1rem}
+footer{text-align:center;padding:16px;color:#38553a;font-size:.9rem}
+@media print{button{display:none}body{background:white}.panel{box-shadow:none}}
+</style>
+</head>
+<body>
+<header>
+  <div style="font-size:2.2rem">🌻 🫛 🧟</div>
+  <h1>OPERATION MERDEKA</h1>
+  <p><strong>National Education: E-Assessment</strong><br>Mission: Explore Malaysia’s national education system and Aminuddin Baki’s contributions.</p>
+</header>
+<main>
+<section class="panel">
+<h2>🎯 Mission Briefing</h2>
+<p>This short assessment checks your understanding of the historical development of Malaysia’s national education system, Aminuddin Baki, and the relevance of these ideas today.</p>
+<span class="tag">10 questions</span><span class="tag">Instant feedback</span><span class="tag">Self-check</span>
+<label for="student" style="display:block;font-weight:bold;margin:14px 0 6px">Agent / Student name (optional)</label>
+<input id="student" type="text" placeholder="Enter your name">
+</section>
+<form id="quiz" class="panel">
+<h2>🧠 Choose your answers</h2>
+<div id="questions"></div>
+<button type="submit">Submit mission</button>
+<button type="button" class="secondary" id="reset">Restart</button>
+</form>
+<section id="result" class="panel" aria-live="polite">
+<h2>📋 Mission Report</h2><div id="score" class="score"></div><p id="message"></p><div id="review"></div>
+<button type="button" id="retry">Try again</button>
+</section>
+<section class="panel">
+<h2>🌱 Reflection</h2>
+<p>In one or two sentences: Which educational principle should Malaysia retain, and what should be adapted for today’s learners?</p>
+<textarea id="reflection" rows="3" style="width:100%;padding:12px;border:2px solid #b99a69;border-radius:10px;font:inherit" placeholder="Write your reflection here..."></textarea>
+<p style="font-size:.9rem">This reflection stays in your browser and is not sent to your teacher.</p>
+</section>
+</main>
+<footer>Operation Merdeka • Digital learning blueprint • Based on the EDUP analysis essay</footer>
+<script>
+const qs=[
+{q:"Before independence, education in Malaya was mainly organised through…",o:["One unified national school system","Separate Malay-, Chinese-, Tamil- and English-medium systems","Only technical schools","A fully online system"],a:1,e:"The essay explains that separate language-medium school systems made a common framework more difficult."},
+{q:"Which report proposed a common curriculum and a more coordinated national education framework in 1956?",o:["Rahman Talib Report","Cheeseman Report","Razak Report","Barnes Report"],a:2,e:"The Razak Report 1956 was an important foundation for the national education system."},
+{q:"The Education Ordinance was introduced in…",o:["1957","1960","1961","1965"],a:0,e:"The Razak Report’s recommendations were incorporated into the Education Ordinance 1957."},
+{q:"Which report reviewed the Razak recommendations and contributed to the Education Act 1961?",o:["Razak Report 1956","Rahman Talib Report 1960","Aminuddin Baki Report 1970","National Digital Report"],a:1,e:"The Rahman Talib Report 1960 reviewed the earlier recommendations."},
+{q:"Aminuddin Baki supported diversified secondary education that included…",o:["Academic pathways only","Only online learning","Academic, technical and vocational pathways","No formal pathways"],a:2,e:"His ideas recognised different learner abilities, interests and aspirations."},
+{q:"How can technical and vocational education support economic development?",o:["By reducing practical learning","By helping learners develop occupational and practical skills","By replacing every academic subject","By preventing career choices"],a:1,e:"Technical and vocational pathways can help prepare a skilled workforce."},
+{q:"In the essay, a key contribution to nation-building was support for…",o:["A shared national educational foundation and national cohesion","Removing all cultural diversity","Ending secondary education","Replacing the curriculum with games"],a:0,e:"A common framework and Bahasa Melayu were linked to shared national identity, while diversity remained important."},
+{q:"Which principle does the essay recommend retaining?",o:["Ignoring learner differences","Educational opportunity and national unity","Avoiding workforce preparation","Keeping technology out of schools"],a:1,e:"The essay recommends retaining unity, educational opportunity and education for national development."},
+{q:"Which contemporary issue should be re-examined in educational planning?",o:["Digital inequality and inclusive access","Whether students should learn anything","The need to remove feedback","Whether assessment is useful"],a:0,e:"The essay highlights digital inequality, inclusivity, emerging technologies and cybersecurity."},
+{q:"A teacher wants to apply Aminuddin Baki’s learner-focused ideas today. Which approach best fits the essay?",o:["Use one method for every learner regardless of need","Offer inclusive learning options and build digital literacy","Focus only on exam scores","Avoid collaboration and problem-solving"],a:1,e:"The essay argues for adapting historical principles to diverse learners and 21st-century needs."}
+];
+const container=document.getElementById('questions');
+function render(){container.innerHTML='';qs.forEach((q,i)=>{let d=document.createElement('div');d.className='question';d.innerHTML=`<p>${i+1}. ${q.q}</p>`+q.o.map((x,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${String.fromCharCode(65+j)}. ${x}</label>`).join('');container.appendChild(d)})}
+function grade(){let correct=0,answered=0,review='';qs.forEach((q,i)=>{let s=document.querySelector(`input[name="q${i}"]:checked`);if(s)answered++;let ok=s&&Number(s.value)===q.a;if(ok)correct++;review+=`<div class="feedback"><strong>${i+1}. ${ok?'✅ Correct':'📝 Correct answer: '+String.fromCharCode(65+q.a)}</strong><br>${q.e}</div>`});return {correct,answered,review}}
+document.getElementById('quiz').addEventListener('submit',e=>{e.preventDefault();let r=grade();document.getElementById('result').style.display='block';document.getElementById('score').textContent=`Score: ${r.correct} / ${qs.length}`;let name=document.getElementById('student').value.trim();document.getElementById('message').textContent=`${name?name+', ':''}${r.answered<qs.length?'You answered '+r.answered+' of '+qs.length+' questions. ':'You completed all questions. '}${r.correct>=8?'Great work, agent! Mission accomplished.':r.correct>=5?'Good effort. Review the feedback and strengthen your knowledge.':'Keep training! Read the feedback, then try the mission again.'}`;document.getElementById('review').innerHTML=r.review;document.getElementById('result').scrollIntoView({behavior:'smooth'})});
+function resetQuiz(){document.getElementById('quiz').reset();document.getElementById('result').style.display='none';document.getElementById('review').innerHTML='';window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('reset').addEventListener('click',resetQuiz);document.getElementById('retry').addEventListener('click',resetQuiz);render();
+</script>
+</body></html>
